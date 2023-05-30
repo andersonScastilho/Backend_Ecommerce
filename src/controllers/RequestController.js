@@ -14,12 +14,13 @@ class RequestController {
 
         products.forEach(async (product) => {
             const productIsValid = await Product.findByPk(product.product_id)
+
             if (!productIsValid) {
                 return res.status(400).json({
                     errors: ['Invalid Product']
                 })
             }
-            products_request.push(productIsValid)
+            products_request.push({ ...product, price: productIsValid.dataValues.price })
 
         })
 
@@ -39,7 +40,9 @@ class RequestController {
         }
 
         const price_total = products_request.reduce((acc, item) => {
-            return acc + item.price
+            const price_totalItem = item.price * item.quantity
+
+            return acc + price_totalItem
         }, 0)
 
         const request = await Request.create({
