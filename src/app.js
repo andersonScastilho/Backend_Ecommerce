@@ -8,7 +8,7 @@ import cors from "cors";
 
 import "./database";
 
-import verifyPayments from './utils/VerifyPayments'
+import verifyPayments from './services/VerifyPayments'
 
 import admTokenRoutes from "./routes/admTokenRoutes";
 import admUserRoutes from "./routes/admUserRoutes";
@@ -17,7 +17,6 @@ import categoryRoutes from "./routes/categoryRoutes";
 import imageS3Bucket from "./routes/imageS3bucket";
 import productCategoryRoutes from "./routes/productCategoryRoutes";
 import productRoutes from "./routes/productRoutes";
-import roleRoutes from "./routes/roleRoutes";
 import tokenRoutes from "./routes/tokenRoutes";
 import userRoutes from "./routes/userRoutes";
 import paymentRoutes from "./routes/paymentRoutes";
