@@ -29,8 +29,10 @@ const verifyPayments = async () => {
         })
         console.log('Verificando pagamento em: ' + new Date())
 
-    } catch (error) {
-        console.log(error)
+    } catch (e) {
+        return res
+            .status(400)
+            .json({ errors: e.errors.map((err) => err.message) });
     }
 }
 
