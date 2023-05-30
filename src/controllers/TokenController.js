@@ -32,7 +32,7 @@ class TokenControlle {
         expiresIn: process.env.TOKEN_EXPIRATION,
       });
 
-      return res.json({ token, id, email });
+      return res.json({ token });
     } catch (e) {
       return res
         .status(400)
