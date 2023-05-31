@@ -26,6 +26,14 @@ class AddressController {
         cep,
       } = req.body;
 
+      const isValidBRZip = zip => /^[0-9]{5}-[0-9]{3}$/.test(zip);
+      const cepIsValid = isValidBRZip(cep)
+
+      if (!cepIsValid) {
+        return res.status(400).json({
+          errors: ['Enter a valid zip code']
+        })
+      }
       await Address.create({
         country,
         state,
