@@ -1,6 +1,8 @@
 import express from "express";
 import cron from 'node-cron'
 import dotenv from "dotenv";
+import helmet from 'helmet'
+import rateLimit from 'express-rate-limit'
 
 dotenv.config();
 
@@ -29,12 +31,18 @@ class App {
     this.routes();
     this.jobs()
   }
+
   middlewares() {
     this.app.use(cors());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
-
+    this.app.use(helmet())
+    this.app.use(rateLimit({
+      windowMs: 15 * 60 * 1000,
+      max: 100
+    }))
   }
+
   routes() {
     this.app.use("/users", userRoutes);
     this.app.use("/tokens", tokenRoutes);
@@ -47,7 +55,6 @@ class App {
     this.app.use("/admUsers", admUserRoutes);
     this.app.use("/payment", paymentRoutes);
     this.app.use('/requests', requestRoutes)
-
   }
 
   jobs() {
