@@ -65,6 +65,7 @@ class Address extends Model {
         },
         address_number: {
           type: Sequelize.INTEGER,
+          allowNull: false,
           validate: {
             isInt: {
               msg: "address number is required",

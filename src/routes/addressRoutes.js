@@ -6,6 +6,7 @@ import addressController from "../controllers/AddressController";
 
 const router = new Router();
 
+router.get("/", loginRequired, addressController.index);
 router.post("/", loginRequired, addressController.store);
 router.get("/:address_id", loginRequired, addressController.show);
 router.put("/:address_id", loginRequired, addressController.update);

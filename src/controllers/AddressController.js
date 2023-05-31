@@ -2,10 +2,34 @@ import Address from "../models/Address";
 import User from "../models/User";
 
 class AddressController {
+  async index(req, res) {
+    try {
+
+      if (!req.user_id) {
+        return res.status(401).json({
+          errors: ['Login required']
+        })
+      }
+
+      const addresses = await Address.findAll({
+        where: {
+          user_id: req.user_id
+        }
+      })
+
+      return res.status(200).json(addresses)
+
+    } catch (error) {
+      return res
+        .status(400)
+        .json({ errors: e.errors.map((err) => err.message) });
+    }
+  }
+
   async store(req, res) {
     try {
       if (!req.user_id) {
-        return res.status(400).json({ errors: ["login required"] });
+        return res.status(400).json({ errors: ["Login required"] });
       }
       const user_id = req.user_id;
 
