@@ -77,7 +77,7 @@ class RequestController {
                 attributes: ['name', 'surname', 'email', 'tel'],
                 model: User
             }, {
-                attributes: ['country', 'state', 'city', 'neighborhood', 'street', 'address_number', 'cep', 'complement'],
+                attributes: ['country', 'state', 'city', 'neighborhood', 'street', 'address_number', 'zip_code', 'complement'],
                 model: Address,
             }, {
                 attributes: ['name', 'description', 'price'],

@@ -37,7 +37,7 @@ module.exports = {
         type: Sequelize.STRING(20),
         allowNull: true,
       },
-      cep: {
+      zip_code: {
         type: Sequelize.STRING(20),
         allowNull: true,
       },

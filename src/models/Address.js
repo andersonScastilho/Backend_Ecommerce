@@ -71,7 +71,7 @@ class Address extends Model {
             },
           },
         },
-        cep: { type: Sequelize.STRING, allowNull: false },
+        zip_code: { type: Sequelize.STRING, allowNull: false },
         user_id: {
           type: Sequelize.INTEGER,
           allowNull: false,

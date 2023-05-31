@@ -23,17 +23,18 @@ class AddressController {
         street,
         address_number,
         complement,
-        cep,
+        zip_code,
       } = req.body;
 
       const isValidBRZip = zip => /^[0-9]{5}-[0-9]{3}$/.test(zip);
-      const cepIsValid = isValidBRZip(cep)
+      const zipCodeIsValid = isValidBRZip(zip_code)
 
-      if (!cepIsValid) {
+      if (!zipCodeIsValid) {
         return res.status(400).json({
           errors: ['Enter a valid zip code']
         })
       }
+
       await Address.create({
         country,
         state,
@@ -42,7 +43,7 @@ class AddressController {
         street,
         address_number,
         complement,
-        cep,
+        zip_code,
         user_id,
       });
 
@@ -54,7 +55,7 @@ class AddressController {
         street,
         address_number,
         complement,
-        cep,
+        zip_code,
       });
 
     } catch (e) {
@@ -69,7 +70,7 @@ class AddressController {
       const address_id = +req.params.address_id;
 
       const address = await Address.findByPk(address_id, {
-        attributes: ['country', 'state', 'city', 'neighborhood', 'street', 'address_number', 'cep', 'complement', 'user_id'],
+        attributes: ['country', 'state', 'city', 'neighborhood', 'street', 'address_number', 'zip_code', 'complement', 'user_id'],
         include: {
           attributes: ["name", "email", "surname", "tel"],
           model: User,
@@ -107,13 +108,13 @@ class AddressController {
         street,
         address_number,
         complement,
-        cep,
+        zip_code,
       } = req.body;
 
       if (!state && !country &&
         !city && !neighborhood &&
         !street && !address_number &&
-        !cep && !complement) {
+        !zip_code && !complement) {
         return res.status(400).json({
           errors: ['Missing data']
         })
@@ -145,7 +146,7 @@ class AddressController {
         street,
         address_number,
         complement,
-        cep
+        zip_code
       });
 
       return res.status(200).json(updatedAddress);
