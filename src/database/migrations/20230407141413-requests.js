@@ -32,11 +32,11 @@ module.exports = {
       payment_id: {
         type: Sequelize.STRING,
       },
-      adress_id: {
+      address_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "adress",
+          model: "address",
           key: "id",
         },
         onDelete: "CASCADE",
