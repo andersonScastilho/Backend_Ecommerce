@@ -12,7 +12,7 @@ import verifyPayments from './services/VerifyPayments'
 
 import admTokenRoutes from "./routes/admTokenRoutes";
 import admUserRoutes from "./routes/admUserRoutes";
-import adressRoutes from "./routes/adressRoutes";
+import addressRoutes from "./routes/addressRoutes";
 import categoryRoutes from "./routes/categoryRoutes";
 import imageS3Bucket from "./routes/imageS3bucket";
 import productCategoryRoutes from "./routes/productCategoryRoutes";
@@ -38,7 +38,7 @@ class App {
   routes() {
     this.app.use("/users", userRoutes);
     this.app.use("/tokens", tokenRoutes);
-    this.app.use("/adress", adressRoutes);
+    this.app.use("/address", addressRoutes);
     this.app.use("/images", imageS3Bucket);
     this.app.use("/products", productRoutes);
     this.app.use("/categories", categoryRoutes);

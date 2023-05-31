@@ -2,7 +2,7 @@ import Sequelize from "sequelize";
 
 import databaseConfig from "../config/database";
 
-import Adress from "../models/Adress";
+import Address from "../models/Address";
 import User from "../models/User";
 import Product from "../models/Product";
 import Category from "../models/Category";
@@ -13,7 +13,7 @@ import RequestProduct from "../models/RequestProduct";
 
 const models = [
   User,
-  Adress,
+  Address,
   Product,
   Category,
   AdministrativeUser,

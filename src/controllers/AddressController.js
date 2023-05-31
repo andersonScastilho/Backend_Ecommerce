@@ -1,7 +1,7 @@
-import Adress from "../models/Adress";
+import Address from "../models/Address";
 import User from "../models/User";
 
-class AdressController {
+class AddressController {
   async store(req, res) {
     try {
       if (!req.user_id) {
@@ -21,18 +21,18 @@ class AdressController {
         city,
         neighborhood,
         street,
-        adress_number,
+        address_number,
         complement,
         cep,
       } = req.body;
 
-      await Adress.create({
+      await Address.create({
         country,
         state,
         city,
         neighborhood,
         street,
-        adress_number,
+        address_number,
         complement,
         cep,
         user_id,
@@ -44,7 +44,7 @@ class AdressController {
         city,
         neighborhood,
         street,
-        adress_number,
+        address_number,
         complement,
         cep,
       });
@@ -58,10 +58,10 @@ class AdressController {
   async show(req, res) {
     try {
 
-      const adress_id = +req.params.adress_id;
+      const address_id = +req.params.address_id;
 
-      const adress = await Adress.findByPk(adress_id, {
-        attributes: ['country', 'state', 'city', 'neighborhood', 'street', 'adress_number', 'cep', 'complement', 'user_id'],
+      const address = await Address.findByPk(address_id, {
+        attributes: ['country', 'state', 'city', 'neighborhood', 'street', 'address_number', 'cep', 'complement', 'user_id'],
         include: {
           attributes: ["name", "email", "surname", "tel"],
           model: User,
@@ -69,27 +69,27 @@ class AdressController {
       });
 
 
-      if (!adress) {
+      if (!address) {
         return res.status(404).json({
-          errors: ['Adress not found']
+          errors: ['Address not found']
         })
       }
 
-      if (adress.user_id !== +req.user_id) {
+      if (address.user_id !== +req.user_id) {
         return res.status(401).json({
           errors: ['This address does not belong to you']
         })
       }
 
 
-      return res.status(200).json({ adress });
+      return res.status(200).json({ address });
     } catch (e) {
       console.log(e)
     }
   }
   async update(req, res) {
     try {
-      const id = +req.params.adress_id;
+      const id = +req.params.address_id;
 
       const {
         country,
@@ -97,14 +97,14 @@ class AdressController {
         city,
         neighborhood,
         street,
-        adress_number,
+        address_number,
         complement,
         cep,
       } = req.body;
 
       if (!state && !country &&
         !city && !neighborhood &&
-        !street && !adress_number &&
+        !street && !address_number &&
         !cep && !complement) {
         return res.status(400).json({
           errors: ['Missing data']
@@ -117,30 +117,30 @@ class AdressController {
         });
       }
 
-      const adress = await Adress.findByPk(id);
+      const address = await Address.findByPk(id);
 
-      if (!adress) {
-        return res.status(404).json({ errors: ["Adress not found"] });
+      if (!address) {
+        return res.status(404).json({ errors: ["Address not found"] });
       }
 
-      if (adress.user_id !== req.user_id) {
+      if (address.user_id !== req.user_id) {
         return res.status(401).json({
           erros: ['This address does not belong to you']
         })
       }
 
-      const updatedAdress = await adress.update({
+      const updatedAddress = await address.update({
         country,
         state,
         city,
         neighborhood,
         street,
-        adress_number,
+        address_number,
         complement,
         cep
       });
 
-      return res.status(200).json(updatedAdress);
+      return res.status(200).json(updatedAddress);
     } catch (e) {
       return res
         .status(400)
@@ -148,13 +148,13 @@ class AdressController {
     }
   }
   async delete(req, res) {
-    const { adress_id } = req.params
+    const { address_id } = req.params
 
-    const address = await Adress.findByPk(adress_id)
+    const address = await Address.findByPk(address_id)
 
     if (!address) {
       return res.status(400).json({
-        errors: ['Adress not found']
+        errors: ['Address not found']
       })
     }
 
@@ -167,8 +167,8 @@ class AdressController {
     await address.destroy()
 
     res.status(200).json({
-      message: ['Deleted adress']
+      message: ['Deleted address']
     })
   }
 }
-export default new AdressController();
+export default new AddressController();

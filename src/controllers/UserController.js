@@ -1,4 +1,4 @@
-import Adress from "../models/Adress";
+import Address from "../models/Address";
 import User from "../models/User";
 
 class UserController {
@@ -61,7 +61,7 @@ class UserController {
       const user = await User.findByPk(req.user_id, {
         attributes: ["name", "email", "surname", "tel"],
         include: {
-          model: Adress,
+          model: Address,
         },
       });
 

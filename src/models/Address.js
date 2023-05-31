@@ -1,6 +1,6 @@
 import Sequelize, { Model } from "sequelize";
 
-class Adress extends Model {
+class Address extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -63,11 +63,11 @@ class Adress extends Model {
             },
           },
         },
-        adress_number: {
+        address_number: {
           type: Sequelize.INTEGER,
           validate: {
             isInt: {
-              msg: "adress number is required",
+              msg: "address number is required",
             },
           },
         },
@@ -79,7 +79,7 @@ class Adress extends Model {
       },
       {
         sequelize,
-        tableName: "adress",
+        tableName: "address",
       }
     );
     return this;
@@ -87,9 +87,9 @@ class Adress extends Model {
 
   static associate(models) {
     this.belongsTo(models.User, { foreignKey: "user_id" }),
-      this.belongsToMany(models.Request, { foreignKey: "adress_id", through: 'requests' })
+      this.belongsToMany(models.Request, { foreignKey: "address_id", through: 'requests' })
 
   }
 }
 
-export default Adress;
+export default Address;

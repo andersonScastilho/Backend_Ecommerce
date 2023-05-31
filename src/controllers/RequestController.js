@@ -1,6 +1,6 @@
 import { Op } from 'sequelize'
 
-import Adress from '../models/Adress'
+import Address from '../models/Address'
 import Request from '../models/Request'
 import User from '../models/User'
 import Product from '../models/Product'
@@ -8,7 +8,7 @@ import RequestProduct from '../models/RequestProduct'
 
 class RequestController {
     async store(req, res) {
-        const { adress_id, products } = req.body
+        const { address_id, products } = req.body
 
         const products_request = []
 
@@ -24,16 +24,16 @@ class RequestController {
 
         })
 
-        const adressVerify = await Adress.findOne({
+        const addressVerify = await Address.findOne({
             where: {
                 [Op.and]: [
-                    { id: adress_id },
+                    { id: address_id },
                     { user_id: req.user_id }
                 ]
             }
         })
 
-        if (!adressVerify) {
+        if (!addressVerify) {
             return res.status(401).json({
                 errors: ['Este endereço não pertence ao usuario atual']
             })
@@ -46,7 +46,7 @@ class RequestController {
         }, 0)
 
         const request = await Request.create({
-            price_total, adress_id, user_id: req.user_id,
+            price_total, address_id, user_id: req.user_id,
         })
 
 
@@ -77,8 +77,8 @@ class RequestController {
                 attributes: ['name', 'surname', 'email', 'tel'],
                 model: User
             }, {
-                attributes: ['country', 'state', 'city', 'neighborhood', 'street', 'adress_number', 'cep', 'complement'],
-                model: Adress,
+                attributes: ['country', 'state', 'city', 'neighborhood', 'street', 'address_number', 'cep', 'complement'],
+                model: Address,
             }, {
                 attributes: ['name', 'description', 'price'],
                 model: Product,

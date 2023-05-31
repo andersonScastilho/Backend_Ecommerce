@@ -12,7 +12,7 @@ class Request extends Model {
           type: Sequelize.INTEGER,
           allowNull: false,
         },
-        adress_id: {
+        address_id: {
           type: Sequelize.INTEGER,
           allowNull: false,
         },
@@ -34,7 +34,7 @@ class Request extends Model {
   }
   static associate(models) {
     this.belongsTo(models.User, { foreignKey: "user_id" }),
-      this.belongsTo(models.Adress, { foreignKey: 'adress_id' }),
+      this.belongsTo(models.Address, { foreignKey: 'address_id' }),
       this.belongsToMany(models.Product, {
         foreignKey: 'nro_request',
         through: "request_products",

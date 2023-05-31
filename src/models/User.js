@@ -82,7 +82,7 @@ class User extends Model {
     return bcryptjs.compare(password, this.password_hash);
   }
   static associate = (models) => {
-    this.hasMany(models.Adress, { foreignKey: "user_id" })
+    this.hasMany(models.Address, { foreignKey: "user_id" })
     this.hasMany(models.Request, { foreignKey: "user_id" })
   };
 }
