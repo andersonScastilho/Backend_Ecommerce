@@ -5,8 +5,8 @@ import joiSchemaValidator from "../middlewares/joiSchemaValidator";
 
 import UserController from "../controllers/UserController";
 
-import createUser from "../schemas/users/createUser";
-import updateUser from '../schemas/users/updateUser'
+import createUser from "../schemas/users/createUserSchema";
+import updateUser from '../schemas/users/updateUserSchema'
 
 const router = Router();
 
