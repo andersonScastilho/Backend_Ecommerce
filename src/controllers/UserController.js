@@ -13,6 +13,13 @@ class UserController {
       const isValidName = regExpIsValidText(name)
       const isValidSurname = regExpIsValidText(surname)
 
+      if (!name && !surname && !tel && !email && !password) {
+        return res.status(400).json({
+          errors: ['Missing data']
+        })
+      }
+
+
       if (!isValidName) {
         return res.status(400).json({
           errors: ['Provide a valid name']
@@ -67,6 +74,43 @@ class UserController {
       }
 
       const { email, name, surname, tel } = req.body;
+
+      if (!name && !surname && !tel && !email) {
+        return res.status(400).json({
+          errors: ['Missing data']
+        })
+      }
+
+      if (email) {
+        if (!validator.isEmail(email)) {
+          return res.status(400).json({
+            errors: ['Provide a valid email']
+          })
+        }
+      }
+
+      if (name) {
+        if (!regExpIsValidText()) {
+          return res.status(400).json({
+            errors: ['Provide a valid name']
+          })
+        }
+      }
+
+      if (surname) {
+        if (!regExpIsValidText(surname)) {
+          return res.status(400).json({
+            errors: ['Provide a valid surname']
+          })
+        }
+      }
+      if (tel) {
+        if (!validator.isMobilePhone(tel)) {
+          return res.status(400).json({
+            errors: ['Provide a valid tel']
+          })
+        }
+      }
 
       await user.update({ name, email, surname, tel });
 
