@@ -1,10 +1,41 @@
 import Address from "../models/Address";
 import User from "../models/User";
 
+import validator from "validator";
+
+import { regExpIsValidText } from '../utils/regExp'
+
 class UserController {
   async store(req, res) {
     try {
       const { name, surname, tel, email, password } = req.body
+
+      const isValidName = regExpIsValidText(name)
+      const isValidSurname = regExpIsValidText(surname)
+
+      if (!isValidName) {
+        return res.status(400).json({
+          errors: ['Provide a valid name']
+        })
+      }
+
+      if (!isValidSurname) {
+        return res.status(400).json({
+          errors: ['Provide a valid surname']
+        })
+      }
+
+      if (!validator.isEmail(email)) {
+        return res.status(400).json({
+          errors: ['Provide a valid email']
+        })
+      }
+
+      if (!validator.isMobilePhone(tel)) {
+        return res.status(400).json({
+          errors: ['Provide a valid number']
+        })
+      }
 
       const user = await User.create({
         name, surname, tel, email, password

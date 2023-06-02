@@ -1,6 +1,8 @@
 import Address from "../models/Address";
 import User from "../models/User";
 
+import { isValidBRZip } from "../utils/regExp";
+
 class AddressController {
   async index(req, res) {
     try {
@@ -50,7 +52,6 @@ class AddressController {
         zip_code,
       } = req.body;
 
-      const isValidBRZip = zip => /^[0-9]{5}-[0-9]{3}$/.test(zip);
       const zipCodeIsValid = isValidBRZip(zip_code)
 
       if (!zipCodeIsValid) {
