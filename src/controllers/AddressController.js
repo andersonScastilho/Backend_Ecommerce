@@ -1,7 +1,7 @@
 import Address from "../models/Address";
 import User from "../models/User";
 
-import { isValidBRZip } from "../utils/regExp";
+import { isValidBRZip, regExpIsValidText } from "../utils/regExp";
 
 class AddressController {
   async index(req, res) {
@@ -52,12 +52,64 @@ class AddressController {
         zip_code,
       } = req.body;
 
+      if (!country || !state ||
+        !city || !neighborhood ||
+        !street || !address_number || !zip_code) {
+        return res.status(400).json({
+          errors: ['Missing data']
+        })
+      }
+      const countryIsValid = regExpIsValidText(country)
+      const stateIsValid = regExpIsValidText(state)
+      const cityIsValid = regExpIsValidText(city)
+      const neighborhoodIsValid = regExpIsValidText(neighborhood)
+      const streetIsValid = regExpIsValidText(street)
       const zipCodeIsValid = isValidBRZip(zip_code)
+
+      if (!countryIsValid) {
+        return res.status(400).json({
+          errors: ['Provide a valid country']
+        })
+      }
+
+      if (!stateIsValid) {
+        return res.status(400).json({
+          errors: ['Provide a valid state']
+        })
+      }
+
+      if (!cityIsValid) {
+        return res.status(400).json({
+          errors: ['Provide a valid city']
+        })
+      }
+
+      if (!neighborhoodIsValid) {
+        return res.status(400).json({
+          errors: ['Provide a valid neighborhood']
+        })
+      }
+
+      if (!streetIsValid) {
+        return res.status(400).json({
+          errors: ['Providea valid street']
+        })
+      }
+
 
       if (!zipCodeIsValid) {
         return res.status(400).json({
           errors: ['Enter a valid zip code']
         })
+      }
+
+      if (complement) {
+        const complementIsValid = regExpIsValidText(complement)
+        if (!complementIsValid) {
+          return res.status(400).json({
+            errors: ['Provide a valid complement']
+          })
+        }
       }
 
       await Address.create({
