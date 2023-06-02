@@ -188,6 +188,12 @@ class AddressController {
         zip_code,
       } = req.body;
 
+      if (!id) {
+        return res.status(400).json({
+          errors: ["Inform the address"],
+        });
+      }
+
       if (!state && !country &&
         !city && !neighborhood &&
         !street && !address_number &&
@@ -197,10 +203,59 @@ class AddressController {
         })
       }
 
-      if (!id) {
-        return res.status(400).json({
-          errors: ["Inform the address"],
-        });
+      if (country) {
+        const countryIsValid = regExpIsValidText(country)
+        if (!countryIsValid) {
+          return res.staus(400).json({
+            errors: ['Provide a valid country']
+          })
+        }
+      }
+
+      if (state) {
+        const stateIsValid = regExpIsValidText(state)
+        if (!stateIsValid) {
+          return res.status(400).json({
+            errors: ['Provide a valid state']
+          })
+        }
+      }
+
+      if (city) {
+        const cityIsValid = regExpIsValidText(city)
+        if (!cityIsValid) {
+          return res.status(400).json({
+            errors: ['Provide a valid city']
+          })
+        }
+      }
+
+      if (neighborhood) {
+        const neighborhoodIsValid = regExpIsValidText(neighborhood)
+        if (!neighborhoodIsValid) {
+          return res.status(400).json({
+            errors: ['Provide a valid neighborhood']
+          })
+        }
+      }
+
+      if (street) {
+        const streetIsValid = regExpIsValidText(street)
+        if (!streetIsValid) {
+          return res.status(400).json({
+            errors: ['Provide a valid street']
+          })
+        }
+      }
+
+      if (zip_code) {
+        const zipCodeIsValid = isValidBRZip(zip_code)
+
+        if (!zipCodeIsValid) {
+          return res.status(400).json({
+            errors: ['Provide a valid zip_code']
+          })
+        }
       }
 
       const address = await Address.findByPk(id);
