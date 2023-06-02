@@ -2,15 +2,23 @@ import jwt from "jsonwebtoken";
 
 import User from "../models/User";
 
+import validator from "validator";
 class TokenControlle {
   async store(req, res) {
     try {
       const { email = "", password = "" } = req.body;
       if (!email || !password) {
         return res.status(401).json({
-          errors: ["Invalid credentials"],
+          errors: ["Missing data"],
         });
       }
+
+      if (!validator.isEmail(email)) {
+        return res.status(400).json({
+          errors: ['Provide a valid email']
+        })
+      }
+
 
       const user = await User.findOne({
         where: { email },
