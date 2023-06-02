@@ -90,7 +90,8 @@ class UserController {
       }
 
       if (name) {
-        if (!regExpIsValidText()) {
+        const isValidName = regExpIsValidText(name)
+        if (!isValidName) {
           return res.status(400).json({
             errors: ['Provide a valid name']
           })
@@ -98,12 +99,14 @@ class UserController {
       }
 
       if (surname) {
-        if (!regExpIsValidText(surname)) {
+        const isValidSurname = regExpIsValidText(surname)
+        if (!isValidSurname) {
           return res.status(400).json({
             errors: ['Provide a valid surname']
           })
         }
       }
+
       if (tel) {
         if (!validator.isMobilePhone(tel)) {
           return res.status(400).json({
