@@ -112,6 +112,12 @@ class AddressController {
         }
       }
 
+      if (typeof address_number !== 'number') {
+        return res.status(400).json({
+          errors: ['Provide a valid number']
+        })
+      }
+
       await Address.create({
         country,
         state,
@@ -258,6 +264,13 @@ class AddressController {
         }
       }
 
+      if (address_number) {
+        if (typeof address_number !== 'number') {
+          return res.status(400).json({
+            errors: ['Provide a valid number']
+          })
+        }
+      }
       const address = await Address.findByPk(id);
 
       if (!address) {
