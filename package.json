@@ -20,7 +20,14 @@
     "validator": "^13.9.0"
   },
   "scripts": {
+    "start": "node dist/server.js"
+
     "dev": "nodemon src/server.js"
+
+    "build": "sucrase ./src -d ./dist --transforms imports"
+
+    
+    
   },
   "devDependencies": {
     "nodemon": "^2.0.21",
