@@ -7,8 +7,22 @@ class ProductController {
       const { description, price, packaging, image_key, category_id, name } =
         req.body;
 
-      if (!category_id) {
-        return res.status(401).json({ errors: ["Category is required"] });
+      if (!description || !price || !packaging || !category_id || !name) {
+        return res.status(400).json({
+          errors: ['Missing data']
+        })
+      }
+
+      if (typeof price !== 'number') {
+        return res.status(400).json({
+          errors: ['Provide a valid price']
+        })
+      }
+
+      if (typeof category_id !== 'number') {
+        return res.status(400).json({
+          errors: ['Provide a valid category']
+        })
       }
 
       const category = await Category.findByPk(category_id);
@@ -49,11 +63,23 @@ class ProductController {
         return res.status(400).json({ errors: ["Product is required"] });
       }
 
+      if (!name && !description && !price && !image_key && !packaging) {
+        return res.status(400).json({
+          errors: ['Missing data']
+        })
+      }
+
       const product = await Product.findByPk(product_id);
 
       await product.update({
         name, description, price, packaging, image_key
       });
+
+      if (typeof price !== 'number') {
+        return res.status(400).json({
+          errors: ['Provide a valid price']
+        })
+      }
 
       return res.status(200).json({
         product

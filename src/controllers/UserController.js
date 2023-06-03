@@ -13,7 +13,7 @@ class UserController {
       const isValidName = regExpIsValidText(name)
       const isValidSurname = regExpIsValidText(surname)
 
-      if (!name && !surname && !tel && !email && !password) {
+      if (!name || !surname || !tel || !email || !password) {
         return res.status(400).json({
           errors: ['Missing data']
         })
