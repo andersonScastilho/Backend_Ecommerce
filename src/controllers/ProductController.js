@@ -69,17 +69,17 @@ class ProductController {
         })
       }
 
-      const product = await Product.findByPk(product_id);
-
-      await product.update({
-        name, description, price, packaging, image_key
-      });
-
       if (typeof price !== 'number') {
         return res.status(400).json({
           errors: ['Provide a valid price']
         })
       }
+
+      const product = await Product.findByPk(product_id);
+
+      await product.update({
+        name, description, price, packaging, image_key
+      });
 
       return res.status(200).json({
         product
