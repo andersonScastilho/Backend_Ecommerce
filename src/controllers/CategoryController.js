@@ -20,6 +20,7 @@ class CategoryController {
         .json({ errors: e.errors.map((err) => err.message) });
     }
   }
+
   async delete(req, res) {
     const { category_id } = req.params
 
