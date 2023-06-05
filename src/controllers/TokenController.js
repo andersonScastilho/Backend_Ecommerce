@@ -8,7 +8,7 @@ class TokenControlle {
     try {
       const { email = "", password = "" } = req.body;
       if (!email || !password) {
-        return res.status(401).json({
+        return res.status(400).json({
           errors: ["Missing data"],
         });
       }
@@ -25,7 +25,7 @@ class TokenControlle {
       });
 
       if (!user) {
-        return res.status(401).json({
+        return res.status(404).json({
           errors: ["User not found"],
         });
       }

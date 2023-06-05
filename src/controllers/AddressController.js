@@ -4,41 +4,17 @@ import User from "../models/User";
 import { isValidBRZip, regExpIsValidText } from "../utils/regExp";
 
 class AddressController {
-  async index(req, res) {
-    try {
-
-      if (!req.user_id) {
-        return res.status(401).json({
-          errors: ['Login required']
-        })
-      }
-
-      const addresses = await Address.findAll({
-        where: {
-          user_id: req.user_id
-        }
-      })
-
-      return res.status(200).json(addresses)
-
-    } catch (error) {
-      return res
-        .status(400)
-        .json({ errors: e.errors.map((err) => err.message) });
-    }
-  }
-
   async store(req, res) {
     try {
       if (!req.user_id) {
-        return res.status(400).json({ errors: ["Login required"] });
+        return res.status(401).json({ errors: ["Login required"] });
       }
       const user_id = req.user_id;
 
       const user = await User.findByPk(user_id);
 
       if (!user) {
-        return res.status(401).json({ errors: ["User not found"] });
+        return res.status(404).json({ errors: ["User not found"] });
       }
 
       const {
@@ -142,6 +118,29 @@ class AddressController {
       });
 
     } catch (e) {
+      return res
+        .status(400)
+        .json({ errors: e.errors.map((err) => err.message) });
+    }
+  }
+  async index(req, res) {
+    try {
+
+      if (!req.user_id) {
+        return res.status(401).json({
+          errors: ['Login required']
+        })
+      }
+
+      const addresses = await Address.findAll({
+        where: {
+          user_id: req.user_id
+        }
+      })
+
+      return res.status(200).json(addresses)
+
+    } catch (error) {
       return res
         .status(400)
         .json({ errors: e.errors.map((err) => err.message) });

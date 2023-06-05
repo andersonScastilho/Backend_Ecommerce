@@ -1,0 +1,457 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api Ecommerce",
+        "description": "Esta api do ecommerce foi desenvolvida para eu testar minhas habilidades como desenvolvedor backend",
+        "contact": {
+            "name": "Anderson Leonardo da Silva Castilho",
+            "email": "leosilvacast@gmail.com"
+        },
+        "version": "1.0.0",
+        "tags": [
+            {
+                "name": "User",
+                "description": "Nesta seção esta relacionada com usuario. onde você consegue criar, atualizar, consultar e deletar."
+            }
+        ]
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Este endpoint é utilizado para realizar a criação de um usuario.",
+                "requestBody": {
+                    "description": "Dados nescessario para crirar um usuario.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Anderson"
+                                    },
+                                    "surname": {
+                                        "type": "string",
+                                        "example": "Leonardo da Silva Castilho"
+                                    },
+                                    "tel": {
+                                        "type": "string",
+                                        "format": "E.164",
+                                        "example": "+5511975895237"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "leoteste@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "fd56d1fsdf510"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuario criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Anderson"
+                                        },
+                                        "surname": {
+                                            "type": "string",
+                                            "example": "Leonardo da Silva Castilho"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "format": "email",
+                                            "example": "leoteste@gmail.com"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Não foi possivel crirar o usuario."
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "description": "Este endpoint serve para voce trazer os dados do usuario logado",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Anderson"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "leoteste@gmail.com"
+                                        },
+                                        "surname": {
+                                            "type": "string",
+                                            "example": "Leonardo da Silva Castilho"
+                                        },
+                                        "tel": {
+                                            "type": "string",
+                                            "format": "E.164",
+                                            "example": "+5511975895237"
+                                        },
+                                        "Addresses": {
+                                            "type": "array",
+                                            "example": [
+                                                {
+                                                    "id": 38,
+                                                    "country": "Brasil",
+                                                    "state": "Estado",
+                                                    "city": "Cidade",
+                                                    "neighborhood": "Bairro",
+                                                    "street": "dafasfdsaf",
+                                                    "complement": "Casa",
+                                                    "address_number": 6165,
+                                                    "zip_code": "xxxxx-xxx",
+                                                    "user_id": 13,
+                                                    "created_at": "2023-06-02T19:29:18.225Z",
+                                                    "updated_at": "2023-06-02T19:29:18.225Z"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "login required"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    },
+                    "400": {
+                        "description": "Não foi possivel buscar este usuario."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Este endpoint serve para atualizar o usuario logado.",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Leonardo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Esta resposta vai retonar apenas os dados atualizados.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Leonardo"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "login required"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    },
+                    "400": {
+                        "description": "Provide a valid data"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User deleted"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "login required"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        },
+        "/tokens": {
+            "post": {
+                "tags": [
+                    "Tokens"
+                ],
+                "description": "Este endpoint serve para autenticar na aplicação",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "leoteste@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "2161dsafdafs"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        },
+        "/address": {
+            "post": {
+                "description": "Este endpoint serve para cadastrar um endereço para o usuario logado.",
+                "tags": [
+                    "Address"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "description": "Dados nescessario para cadastra um endereço",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "country": {
+                                        "type": "string",
+                                        "example": "Brasil"
+                                    },
+                                    "state": {
+                                        "type": "string",
+                                        "example": "São Paulo"
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "example": "city"
+                                    },
+                                    "neighborhood": {
+                                        "type": "string",
+                                        "example": "Bairro"
+                                    },
+                                    "street": {
+                                        "type": "string",
+                                        "example": "ruddda"
+                                    },
+                                    "zip_code": {
+                                        "type": "string",
+                                        "example": "13299-424"
+                                    },
+                                    "address_number": {
+                                        "type": "number",
+                                        "example": "153"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "country": {
+                                            "type": "string",
+                                            "example": "Brasil"
+                                        },
+                                        "state": {
+                                            "type": "string",
+                                            "example": "São Paulo"
+                                        },
+                                        "city": {
+                                            "type": "string",
+                                            "example": "city"
+                                        },
+                                        "neighborhood": {
+                                            "type": "string",
+                                            "example": "Bairro"
+                                        },
+                                        "street": {
+                                            "type": "string",
+                                            "example": "ruaddd"
+                                        },
+                                        "zip_code": {
+                                            "type": "string",
+                                            "example": "13299-424"
+                                        },
+                                        "address_number": {
+                                            "type": "number",
+                                            "example": "153"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "login required"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    },
+                    "400": {
+                        "description": "Provide a valid data"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Address"
+                ],
+                "description": "Buscar todos os endereços cadastrado do usuario logado",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "country": {
+                                                "type": "string",
+                                                "example": "Brasil"
+                                            },
+                                            "state": {
+                                                "type": "string",
+                                                "example": "São Paulo"
+                                            },
+                                            "city": {
+                                                "type": "string",
+                                                "example": "city"
+                                            },
+                                            "neighborhood": {
+                                                "type": "string",
+                                                "example": "Bairro"
+                                            },
+                                            "street": {
+                                                "type": "string",
+                                                "example": "ruaddd"
+                                            },
+                                            "zip_code": {
+                                                "type": "string",
+                                                "example": "13299-424"
+                                            },
+                                            "address_number": {
+                                                "type": "number",
+                                                "example": "153"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "login required"
+                    },
+                    "400": {
+                        "description": "Não foi possivel buscar endereços do usuario."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}

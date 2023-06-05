@@ -24,6 +24,12 @@ import userRoutes from "./routes/userRoutes";
 import paymentRoutes from "./routes/paymentRoutes";
 import requestRoutes from './routes/requestRouter'
 
+import swaggerUi from "swagger-ui-express"
+import swaggerDocument from "./swagger.json"
+
+dotenv.config();
+
+
 class App {
   constructor() {
     this.app = express();
@@ -41,6 +47,7 @@ class App {
       windowMs: 15 * 60 * 1000,
       max: 100
     }))
+    this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   }
 
   routes() {

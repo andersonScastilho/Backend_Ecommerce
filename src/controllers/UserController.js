@@ -64,13 +64,13 @@ class UserController {
   async update(req, res) {
     try {
       if (!req.user_id) {
-        return res.status(400).json({ errors: ["login required"] });
+        return res.status(401).json({ errors: ["login required"] });
       }
 
       const user = await User.findByPk(req.user_id);
 
       if (!user) {
-        return res.status(401).json({ error: ["User not found"] });
+        return res.status(404).json({ error: ["User not found"] });
       }
 
       const { email, name, surname, tel } = req.body;
@@ -133,7 +133,7 @@ class UserController {
   async show(req, res) {
     try {
       if (!req.user_id) {
-        return res.status(400).json({ errors: ["login required"] });
+        return res.status(401).json({ errors: ["login required"] });
       }
 
       const user = await User.findByPk(req.user_id, {
@@ -144,7 +144,7 @@ class UserController {
       });
 
       if (!user) {
-        return res.status(400).json({ error: ["User not found"] });
+        return res.status(404).json({ error: ["User not found"] });
       }
 
       return res.status(200).json(user);
@@ -163,13 +163,13 @@ class UserController {
       const user = await User.findByPk(req.user_id);
 
       if (!user) {
-        return res.status(400).json({ errors: ["User not found"] });
+        return res.status(404).json({ errors: ["User not found"] });
       }
 
       await user.destroy()
 
       return res.status(200).json({
-        errors: ['User deleted']
+        message: 'User deleted'
       });
 
     } catch (e) {
