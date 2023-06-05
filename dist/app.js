@@ -24,6 +24,12 @@ var _userRoutes = require('./routes/userRoutes'); var _userRoutes2 = _interopReq
 var _paymentRoutes = require('./routes/paymentRoutes'); var _paymentRoutes2 = _interopRequireDefault(_paymentRoutes);
 var _requestRouter = require('./routes/requestRouter'); var _requestRouter2 = _interopRequireDefault(_requestRouter);
 
+var _swaggeruiexpress = require('swagger-ui-express'); var _swaggeruiexpress2 = _interopRequireDefault(_swaggeruiexpress);
+var _swaggerjson = require('./swagger.json'); var _swaggerjson2 = _interopRequireDefault(_swaggerjson);
+
+_dotenv2.default.config();
+
+
 class App {
   constructor() {
     this.app = _express2.default.call(void 0, );
@@ -41,6 +47,7 @@ class App {
       windowMs: 15 * 60 * 1000,
       max: 100
     }))
+    this.app.use("/api-docs", _swaggeruiexpress2.default.serve, _swaggeruiexpress2.default.setup(_swaggerjson2.default));
   }
 
   routes() {
