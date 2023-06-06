@@ -28,7 +28,7 @@ class ProductController {
       const category = await _Category2.default.findByPk(category_id);
 
       if (!category) {
-        return res.status(400).json({ errors: ["Category not found"] });
+        return res.status(404).json({ errors: ["Category not found"] });
       }
 
       const product = await _Product2.default.create({
@@ -102,13 +102,13 @@ class ProductController {
       const product = await _Product2.default.findByPk(product_id);
 
       if (!product) {
-        return res.status(400).json({ errors: ["Product not found"] });
+        return res.status(404).json({ errors: ["Product not found"] });
       }
 
       product.destroy();
 
       return res.status(200).json({
-        message: ['Deleted product']
+        message: 'Deleted product'
       });
     } catch (e) {
       return res
@@ -138,7 +138,7 @@ class ProductController {
       });
 
       if (!product) {
-        return res.status(400).json({ errors: ["Product not found"] });
+        return res.status(404).json({ errors: ["Product not found"] });
       }
 
       return res.status(200).json({

@@ -15,7 +15,7 @@ class AdministrativeUserController {
       });
 
       if (!role) {
-        return res.status(400).json({
+        return res.status(404).json({
           errors: ['Role not found']
         })
       }
@@ -27,7 +27,7 @@ class AdministrativeUserController {
       });
 
       if (verifyEmail) {
-        return res.status(401).json({ erros: ["E-mail in use"] });
+        return res.status(400).json({ erros: ["E-mail in use"] });
       }
 
       const verifyUsername = await _AdministrativeUser2.default.findOne({
@@ -37,7 +37,7 @@ class AdministrativeUserController {
       });
 
       if (verifyUsername) {
-        return res.status(401).json({ erros: ["Username in use"] });
+        return res.status(400).json({ erros: ["Username in use"] });
       }
 
       const admUser = await _AdministrativeUser2.default.create({
@@ -74,7 +74,7 @@ class AdministrativeUserController {
       });
 
       if (!admUser) {
-        return res.status(400).json({
+        return res.status(404).json({
           errors: ["Administrativer user not found"],
         });
       }

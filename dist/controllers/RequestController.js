@@ -71,59 +71,72 @@ class RequestController {
     }
     async index(req, res) {
 
-        const requests = await _Request2.default.findAll({
-            attributes: ['id', 'price_total', 'created_at', 'updated_at'],
-            include: [{
-                attributes: ['name', 'surname', 'email', 'tel'],
-                model: _User2.default
-            }, {
-                attributes: ['country', 'state', 'city', 'neighborhood', 'street', 'address_number', 'zip_code', 'complement'],
-                model: _Address2.default,
-            }, {
-                attributes: ['name', 'description', 'price'],
-                model: _Product2.default,
-                as: 'products',
-                through: {
-                    attributes: ['nro_request', 'quantity']
+        try {
+            const requests = await _Request2.default.findAll({
+                attributes: ['id', 'price_total', 'created_at', 'updated_at'],
+                include: [{
+                    attributes: ['name', 'surname', 'email', 'tel'],
+                    model: _User2.default
+                }, {
+                    attributes: ['country', 'state', 'city', 'neighborhood', 'street', 'address_number', 'zip_code', 'complement'],
+                    model: _Address2.default,
+                }, {
+                    attributes: ['name', 'description', 'price'],
+                    model: _Product2.default,
+                    as: 'products',
+                    through: {
+                        attributes: ['nro_request', 'quantity']
+                    }
+                }],
+                where: {
+                    user_id: req.user_id
                 }
-            }],
-            where: {
-                user_id: req.user_id
-            }
-        })
+            })
 
-        return res.status(200).json({
-            requests
-        })
+            return res.status(200).json({
+                requests
+            })
+        } catch (e) {
+            return res
+                .status(400)
+                .json({ errors: e.errors.map((err) => err.message) });
+        }
     }
     async delete(req, res) {
         const { request_id } = req.params
 
-        const request = await _Request2.default.findByPk(request_id)
+        try {
+            const request = await _Request2.default.findByPk(request_id)
 
-        if (!request) {
-            return res.status(400).json({
-                errors: ['Request not found']
+            if (!request) {
+                return res.status(404).json({
+                    errors: ['Request not found']
+                })
+            }
+
+            if (request.user_id !== req.user_id) {
+                return res.status(401).json({
+                    errors: ['You are not allowed to delete this']
+                })
+            }
+
+            if (request.payload === 'paid') {
+                return res.status(400).json({
+                    errors: ['Request is paid']
+                })
+            }
+
+            await request.destroy()
+
+            res.status(200).json({
+                message: "Request deleted"
             })
+        } catch (e) {
+            return res
+                .status(400)
+                .json({ errors: e.errors.map((err) => err.message) });
         }
 
-        if (request.user_id !== req.user_id) {
-            return res.status(401).json({
-                errors: ['You are not allowed to delete this']
-            })
-        }
-
-        if (request.payload === 'paid') {
-            return res.status(401).json({
-                errors: ['Request is paid']
-            })
-        }
-
-        await request.destroy()
-
-        res.status(200).json({
-            message: "Request deleted"
-        })
     }
 }
 exports. default = new RequestController()
