@@ -35,7 +35,7 @@ class PaymentController {
     })
 
     if (!request) {
-      return res.status(400).json({
+      return res.status(404).json({
         errors: ['Request not found']
       })
     }

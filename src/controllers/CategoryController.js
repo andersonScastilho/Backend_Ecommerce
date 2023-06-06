@@ -6,7 +6,7 @@ class CategoryController {
       const name = req.body.name.toLowerCase();
 
       if (!name) {
-        return res.status(401).json({ errors: ["name is required"] });
+        return res.status(400).json({ errors: ["name is required"] });
       }
 
       const category = await Category.create({ name });
@@ -27,7 +27,7 @@ class CategoryController {
     const category = await Category.findByPk(category_id)
 
     if (!category) {
-      return res.status(400).json({
+      return res.status(404).json({
         errors: ['Category not found']
       })
     }
@@ -36,7 +36,7 @@ class CategoryController {
 
 
     return res.status(200).json({
-      message: ['Deleted category']
+      message: 'Deleted category'
     })
   }
 }

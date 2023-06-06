@@ -7,18 +7,14 @@
       "name": "Anderson Leonardo da Silva Castilho",
       "email": "leosilvacast@gmail.com"
     },
-    "version": "1.0.0",
-    "tags": [
-      {
-        "name": "User",
-        "description": "Nesta seção esta relacionada com usuario. onde você consegue criar, atualizar, consultar e deletar."
-      }
-    ]
+    "version": "1.0.0"
   },
   "paths": {
     "/users": {
       "post": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "Este endpoint é utilizado para realizar a criação de um usuario.",
         "requestBody": {
           "description": "Dados nescessario para crirar um usuario.",
@@ -84,7 +80,9 @@
         }
       },
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -150,7 +148,9 @@
         }
       },
       "put": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "Este endpoint serve para atualizar o usuario logado.",
         "security": [
           {
@@ -199,7 +199,9 @@
         }
       },
       "delete": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -232,7 +234,9 @@
     },
     "/tokens": {
       "post": {
-        "tags": ["Tokens"],
+        "tags": [
+          "Tokens"
+        ],
         "description": "Este endpoint serve para autenticar na aplicação",
         "requestBody": {
           "content": {
@@ -276,7 +280,9 @@
     "/address": {
       "post": {
         "description": "Este endpoint serve para cadastrar um endereço para o usuario logado.",
-        "tags": ["Address"],
+        "tags": [
+          "Address"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -372,7 +378,9 @@
         }
       },
       "get": {
-        "tags": ["Address"],
+        "tags": [
+          "Address"
+        ],
         "description": "Buscar todos os endereços cadastrado do usuario logado",
         "security": [
           {
@@ -432,7 +440,9 @@
     },
     "/address/${id}": {
       "get": {
-        "tags": ["Address"],
+        "tags": [
+          "Address"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -486,7 +496,10 @@
                       "type": "string",
                       "example": "casa"
                     },
-                    "user_id": { "type": "number", "example": 1 },
+                    "user_id": {
+                      "type": "number",
+                      "example": 1
+                    },
                     "User": {
                       "type": "object",
                       "properties": {
@@ -520,11 +533,15 @@
           "401": {
             "description": "This address does not belong to you"
           },
-          "400": { "description": "Não foi possivel encontrar este endereço" }
+          "400": {
+            "description": "Não foi possivel encontrar este endereço"
+          }
         }
       },
       "put": {
-        "tags": ["Address"],
+        "tags": [
+          "Address"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -586,7 +603,9 @@
             "bearerAuth": []
           }
         ],
-        "tags": ["Address"],
+        "tags": [
+          "Address"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -616,17 +635,891 @@
           "404": {
             "description": "Address not found"
           },
-          "401": { "description": "You are not allowed to delete this" }
+          "401": {
+            "description": "You are not allowed to delete this"
+          }
         }
       }
-    }
-  },
-  "components": {
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
+    },
+    "/admUsers": {
+      "post": {
+        "tags": [
+          "AdmUser"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "role_id": {
+                    "type": "number",
+                    "example": 1,
+                    "required": true
+                  },
+                  "username": {
+                    "type": "string",
+                    "example": "lcastilho"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "leoteste@gmail.com"
+                  },
+                  "fullname": {
+                    "type": "string",
+                    "example": "Anderson Leonardo da Castilho"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "dfas6dsf551"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "username": {
+                      "type": "string",
+                      "example": "lcastilho"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "leoteste@gmail.com"
+                    },
+                    "fullname": {
+                      "type": "string",
+                      "example": "Anderson Leonardo da Castilho"
+                    },
+                    "role": {
+                      "type": "object",
+                      "properties": {
+                        "role": {
+                          "type": "string",
+                          "example": "administrador"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Não foi possivel criar o usuario"
+          },
+          "404": {
+            "description": "Role not found"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "AdmUser"
+        ],
+        "description": "Este endpoint serve para buscar o admUser logado",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "username": {
+                      "type": "string",
+                      "example": "lcastilho"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "leoteste@gmail.com"
+                    },
+                    "fullname": {
+                      "type": "string",
+                      "example": "Anderson Leonardo da Castilho"
+                    },
+                    "role": {
+                      "type": "object",
+                      "properties": {
+                        "role": {
+                          "type": "string",
+                          "example": "administrador"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Administrativer user not found"
+          },
+          "400": {
+            "description": "Não foi possivel localizar este usuario"
+          }
+        }
+      }
+    },
+    "/admTokens": {
+      "post": {
+        "tags": [
+          "Tokens"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "leoteste@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "123456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "format": "JWT",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials"
+          },
+          "404": "Administrative user not found"
+        },
+        "400": {
+          "description": "Não foi possivel autenticar este usuario"
+        }
+      }
+    },
+    "/categories": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "Categories"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "futebol"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "futebol"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "delete": {
+        "tags": [
+          "Categories"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Id da categoria",
+            "required": true,
+            "type": "number",
+            "format": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Deleted category"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category not found"
+          }
+        }
+      }
+    },
+    "/products": {
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "description": {
+                    "type": "string",
+                    "example": "jabulani 2014 branca e azul"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 15.50
+                  },
+                  "packaging": {
+                    "type": "string",
+                    "example": "un"
+                  },
+                  "category_id": {
+                    "type": "number",
+                    "format": "integer",
+                    "example": 5
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Bola de futebol - jabulani"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "product": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "format": "integer",
+                          "example": 7
+                        },
+                        "description": {
+                          "type": "string",
+                          "example": " jogo para ps4, ps5 e xbox one"
+                        },
+                        "price": {
+                          "type": "number",
+                          "example": 250
+                        },
+                        "packaging": {
+                          "type": "string",
+                          "example": "un"
+                        },
+                        "image_key": {
+                          "type": "string",
+                          "example": "dsaf5561sfd561"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Fifa"
+                        },
+                        "category": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "Tenis"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category not found"
+          },
+          "400": {
+            "description": "Provide a valid data"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "description": {
+                        "type": "string",
+                        "example": " jogo para ps4, ps5 e xbox one"
+                      },
+                      "price": {
+                        "type": "number",
+                        "example": 250
+                      },
+                      "packaging": {
+                        "type": "string",
+                        "example": "un"
+                      },
+                      "image_key": {
+                        "type": "string",
+                        "example": "dsaf5561sfd561"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Fifa"
+                      },
+                      "category": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "example": "Tenis"
+                          },
+                          "id": {
+                            "type": "number",
+                            "format": "integer",
+                            "example": 1
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Não foi possivel encontrar os produtos"
+          }
+        }
+      }
+    },
+    "/product/{id}": {
+      "put": {
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "number",
+            "format": "integer",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Uva"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "uva"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found"
+          },
+          "400": {
+            "description": "Provide a valid data"
+          }
+        }
+      },
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "number",
+            "format": "integer"
+          }
+        ],
+        "tags": [
+          "Products"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "description": {
+                      "type": "string",
+                      "example": " jogo para ps4, ps5 e xbox one"
+                    },
+                    "price": {
+                      "type": "number",
+                      "example": 250
+                    },
+                    "packaging": {
+                      "type": "string",
+                      "example": "un"
+                    },
+                    "image_key": {
+                      "type": "string",
+                      "example": "dsaf5561sfd561"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Fifa"
+                    },
+                    "category": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "Tenis"
+                        },
+                        "id": {
+                          "type": "number",
+                          "format": "integer",
+                          "example": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found"
+          },
+          "400": {
+            "description": "Não foi possivel encontrar este produto"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "number",
+            "format": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Deleted product"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Provide a valid data"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      }
+    },
+    "/requests": {
+      "post": {
+        "tags": [
+          "Requests"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "address_id": {
+                    "type": "number",
+                    "format": "integer",
+                    "example": 2
+                  },
+                  "products": {
+                    "type": "array",
+                    "example": [
+                      {
+                        "product_id": 1,
+                        "quantity": 5
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "request": {
+                      "type": "object",
+                      "example": {
+                        "payment_status": "unpaid",
+                        "id": 1,
+                        "price_total": 120,
+                        "address_id": 1,
+                        "user_id": 7,
+                        "updated_at": "2023-06-06T18:14:54.665Z",
+                        "created_at": "2023-06-06T18:14:54.665Z",
+                        "payment_id": null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed to add request"
+          },
+          "401": {
+            "description": "The address does not belong to the user "
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Requests"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "integer",
+                        "example": 5
+                      },
+                      "price_total": {
+                        "type": "number",
+                        "example": 120
+                      },
+                      "created_at": {
+                        "type": "date",
+                        "example": "2023-06-06T18:14:54.665Z"
+                      },
+                      "updated_at": {
+                        "type": "date",
+                        "example": "2023-06-06T18:14:54.665Z"
+                      },
+                      "User": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "example": "ANdersons"
+                          },
+                          "surname": {
+                            "type": "string",
+                            "example": "dfafasdfa"
+                          },
+                          "email": {
+                            "type": "string",
+                            "example": "idsafa4@dgmail.com",
+                            "format": "email"
+                          },
+                          "tel": {
+                            "type": "string",
+                            "example": "+5511975895237",
+                            "format": "E.164"
+                          }
+                        }
+                      },
+                      "Address": {
+                        "type": "object",
+                        "properties": {
+                          "country": {
+                            "type": "string",
+                            "example": "Brasil"
+                          },
+                          "state": {
+                            "type": "string",
+                            "example": "São Paulo"
+                          },
+                          "city": {
+                            "type": "string",
+                            "example": "Itupeva"
+                          },
+                          "neighborhood": {
+                            "type": "string",
+                            "example": "Nova Monte Serrat"
+                          },
+                          "street": {
+                            "type": "string",
+                            "example": "dafasfdsaf"
+                          },
+                          "address_number": {
+                            "type": "number",
+                            "example": 161
+                          },
+                          "zip_code": {
+                            "type": "string",
+                            "example": "13299-145"
+                          },
+                          "complement": {
+                            "type": "string",
+                            "example": "Casa"
+                          }
+                        }
+                      },
+                      "products": {
+                        "type": "array",
+                        "items": {
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "Camiseta adidas"
+                            },
+                            "description": {
+                              "type": "string",
+                              "example": "Camiseta adidas branca"
+                            },
+                            "price": {
+                              "type": "string",
+                              "example": 15
+                            },
+                            "request_products": {
+                              "type": "object",
+                              "properties": {
+                                "nro_request": {
+                                  "type": "number",
+                                  "format": "integer",
+                                  "example": 1
+                                },
+                                "quantity": {
+                                  "type": "number",
+                                  "format": "integer",
+                                  "example": 5
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Não foi possivel listar os pedidos"
+          }
+        }
+      }
+    },
+    "/request/{id}": {
+      "delete": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "format": "integer"
+          }
+        ],
+        "tags": [
+          "Requests"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Request deleted"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Não foi possivel deletar este pedido"
+          }
+        }
+      }
+    },
+    "/payment": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "Payment"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "nro_request",
+            "required": true,
+            "type": "number",
+            "format": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJpZHNhZmE0QGRnbWFpbC5jb20iLCJpYXQiOjE2ODYwNzUxNjMsImV4cCI6MTY4NjE2MTU2M30.63j8-fV20r_GtvLc8Wgy5awO3pNK8f12RasAAdtWPgE"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "You are not allowed to delete this"
+          },
+          "400": {
+            "description": "This request is payd"
+          },
+          "404": {
+            "description": "Request not found"
+          }
+        }
+      }
+    },
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
       }
     }
   }

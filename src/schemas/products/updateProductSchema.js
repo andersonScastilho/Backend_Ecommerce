@@ -6,5 +6,5 @@ export default Joi.object({
     packaging: Joi.string().min(2).max(10).regex(/^[^\d]+$/i),
     image_key: Joi.string(),
     category_id: Joi.number().integer(),
-    name: Joi.string().min(3).max(50).regex(/^[^\d]+$/i)
+    name: Joi.string().min(3).max(50)
 })

@@ -36,12 +36,12 @@ class ProductCategoryController {
       await category.removeProduct(product);
 
       return res.status(200).json({
-        message: ['Category removida']
+        message: 'Category removed'
       });
     } catch (e) {
       return res
         .status(400)
-        .json({ errors: e.errors.map((err) => err.message) }); s
+        .json({ errors: e.errors.map((err) => err.message) });
     }
   }
 }

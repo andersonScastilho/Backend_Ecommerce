@@ -16,7 +16,7 @@ class AdmTokenController {
       const admUser = await AdministrativeUser.findOne({ where: { username } });
 
       if (!admUser) {
-        return res.status(401).json({
+        return res.status(404).json({
           errors: ["Administrative user not found"],
         });
       }
