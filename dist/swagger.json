@@ -12,12 +12,10 @@
   "paths": {
     "/users": {
       "post": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "description": "Este endpoint é utilizado para realizar a criação de um usuario.",
         "requestBody": {
-          "description": "Dados nescessario para crirar um usuario.",
+          "description": "Dados nescessario para criar um usuario.",
           "content": {
             "application/json": {
               "schema": {
@@ -80,9 +78,7 @@
         }
       },
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "security": [
           {
             "bearerAuth": []
@@ -148,9 +144,7 @@
         }
       },
       "put": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "description": "Este endpoint serve para atualizar o usuario logado.",
         "security": [
           {
@@ -199,9 +193,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "security": [
           {
             "bearerAuth": []
@@ -234,9 +226,7 @@
     },
     "/tokens": {
       "post": {
-        "tags": [
-          "Tokens"
-        ],
+        "tags": ["Tokens"],
         "description": "Este endpoint serve para autenticar na aplicação",
         "requestBody": {
           "content": {
@@ -280,9 +270,7 @@
     "/address": {
       "post": {
         "description": "Este endpoint serve para cadastrar um endereço para o usuario logado.",
-        "tags": [
-          "Address"
-        ],
+        "tags": ["Address"],
         "security": [
           {
             "bearerAuth": []
@@ -378,9 +366,7 @@
         }
       },
       "get": {
-        "tags": [
-          "Address"
-        ],
+        "tags": ["Address"],
         "description": "Buscar todos os endereços cadastrado do usuario logado",
         "security": [
           {
@@ -440,9 +426,7 @@
     },
     "/address/${id}": {
       "get": {
-        "tags": [
-          "Address"
-        ],
+        "tags": ["Address"],
         "security": [
           {
             "bearerAuth": []
@@ -539,9 +523,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Address"
-        ],
+        "tags": ["Address"],
         "security": [
           {
             "bearerAuth": []
@@ -603,9 +585,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": [
-          "Address"
-        ],
+        "tags": ["Address"],
         "parameters": [
           {
             "name": "id",
@@ -643,9 +623,7 @@
     },
     "/admUsers": {
       "post": {
-        "tags": [
-          "AdmUser"
-        ],
+        "tags": ["AdmUser"],
         "security": [
           {
             "bearerAuth": []
@@ -728,9 +706,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": [
-          "AdmUser"
-        ],
+        "tags": ["AdmUser"],
         "description": "Este endpoint serve para buscar o admUser logado",
         "responses": {
           "200": {
@@ -775,9 +751,7 @@
     },
     "/admTokens": {
       "post": {
-        "tags": [
-          "Tokens"
-        ],
+        "tags": ["Tokens"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -829,9 +803,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": [
-          "Categories"
-        ],
+        "tags": ["Categories"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -866,9 +838,7 @@
     },
     "/categories/{id}": {
       "delete": {
-        "tags": [
-          "Categories"
-        ],
+        "tags": ["Categories"],
         "security": [
           {
             "bearerAuth": []
@@ -907,9 +877,7 @@
     },
     "/products": {
       "post": {
-        "tags": [
-          "Products"
-        ],
+        "tags": ["Products"],
         "security": [
           {
             "bearerAuth": []
@@ -926,7 +894,7 @@
                   },
                   "price": {
                     "type": "number",
-                    "example": 15.50
+                    "example": 15.5
                   },
                   "packaging": {
                     "type": "string",
@@ -1005,9 +973,7 @@
         }
       },
       "get": {
-        "tags": [
-          "Products"
-        ],
+        "tags": ["Products"],
         "responses": {
           "200": {
             "content": {
@@ -1064,9 +1030,7 @@
     },
     "/product/{id}": {
       "put": {
-        "tags": [
-          "Products"
-        ],
+        "tags": ["Products"],
         "security": [
           {
             "bearerAuth": []
@@ -1128,9 +1092,7 @@
             "format": "integer"
           }
         ],
-        "tags": [
-          "Products"
-        ],
+        "tags": ["Products"],
         "responses": {
           "200": {
             "content": {
@@ -1185,9 +1147,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Products"
-        ],
+        "tags": ["Products"],
         "security": [
           {
             "bearerAuth": []
@@ -1228,9 +1188,7 @@
     },
     "/requests": {
       "post": {
-        "tags": [
-          "Requests"
-        ],
+        "tags": ["Requests"],
         "security": [
           {
             "bearerAuth": []
@@ -1293,9 +1251,7 @@
         }
       },
       "get": {
-        "tags": [
-          "Requests"
-        ],
+        "tags": ["Requests"],
         "security": [
           {
             "bearerAuth": []
@@ -1448,9 +1404,7 @@
             "format": "integer"
           }
         ],
-        "tags": [
-          "Requests"
-        ],
+        "tags": ["Requests"],
         "responses": {
           "200": {
             "content": {
@@ -1472,16 +1426,14 @@
         }
       }
     },
-    "/payment": {
+    "/payment/{nro_request}": {
       "post": {
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "tags": [
-          "Payment"
-        ],
+        "tags": ["Payment"],
         "parameters": [
           {
             "in": "path",
@@ -1518,24 +1470,14 @@
         }
       }
     }
-    
   },
-
-      "components": {
-
-      "securitySchemes": {
-
-        "bearerAuth": {
-
-          "type": "http",
-
-          "scheme": "bearer",
-
-          "bearerFormat": "JWT"
-
-        }
-
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
-
     }
+  }
 }
