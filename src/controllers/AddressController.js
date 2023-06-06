@@ -175,7 +175,9 @@ class AddressController {
 
       return res.status(200).json({ address });
     } catch (e) {
-      console.log(e)
+      return res
+        .status(400)
+        .json({ errors: e.errors.map((err) => err.message) });
     }
   }
   async update(req, res) {
@@ -306,13 +308,13 @@ class AddressController {
     const address = await Address.findByPk(address_id)
 
     if (!address) {
-      return res.status(400).json({
+      return res.status(404).json({
         errors: ['Address not found']
       })
     }
 
     if (address.user_id !== req.user_id) {
-      return res.status(400).json({
+      return res.status(401).json({
         errors: ['You are not allowed to delete this']
       })
     }
@@ -320,7 +322,7 @@ class AddressController {
     await address.destroy()
 
     res.status(200).json({
-      message: ['Deleted address']
+      message: 'Deleted address'
     })
   }
 }
