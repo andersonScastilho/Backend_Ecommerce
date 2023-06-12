@@ -35,12 +35,10 @@ class AddressController {
           errors: ['Missing data']
         })
       }
-      const countryIsValid = _regExp.regExpIsValidText.call(void 0, country)
-      const stateIsValid = _regExp.regExpIsValidText.call(void 0, state)
-      const cityIsValid = _regExp.regExpIsValidText.call(void 0, city)
-      const neighborhoodIsValid = _regExp.regExpIsValidText.call(void 0, neighborhood)
-      const streetIsValid = _regExp.regExpIsValidText.call(void 0, street)
-      const zipCodeIsValid = _regExp.isValidBRZip.call(void 0, zip_code)
+      const countryIsValid = _regExp.regExpValidationCharactersFromAToZ.call(void 0, country)
+      const stateIsValid = _regExp.regExpValidationCharactersFromAToZ.call(void 0, state)
+      const cityIsValid = _regExp.regExpValidationCharactersFromAToZ.call(void 0, city)
+      const zipCodeIsValid = _regExp.regExpValidationBRZip.call(void 0, zip_code)
 
       if (!countryIsValid) {
         return res.status(400).json({
@@ -60,19 +58,6 @@ class AddressController {
         })
       }
 
-      if (!neighborhoodIsValid) {
-        return res.status(400).json({
-          errors: ['Provide a valid neighborhood']
-        })
-      }
-
-      if (!streetIsValid) {
-        return res.status(400).json({
-          errors: ['Providea valid street']
-        })
-      }
-
-
       if (!zipCodeIsValid) {
         return res.status(400).json({
           errors: ['Enter a valid zip code']
@@ -80,7 +65,7 @@ class AddressController {
       }
 
       if (complement) {
-        const complementIsValid = _regExp.regExpIsValidText.call(void 0, complement)
+        const complementIsValid = _regExp.regExpValidationCharactersFromAToZ.call(void 0, complement)
         if (!complementIsValid) {
           return res.status(400).json({
             errors: ['Provide a valid complement']
@@ -211,7 +196,7 @@ class AddressController {
       }
 
       if (country) {
-        const countryIsValid = _regExp.regExpIsValidText.call(void 0, country)
+        const countryIsValid = _regExp.regExpValidationCharactersFromAToZ.call(void 0, country)
         if (!countryIsValid) {
           return res.staus(400).json({
             errors: ['Provide a valid country']
@@ -220,7 +205,7 @@ class AddressController {
       }
 
       if (state) {
-        const stateIsValid = _regExp.regExpIsValidText.call(void 0, state)
+        const stateIsValid = _regExp.regExpValidationCharactersFromAToZ.call(void 0, state)
         if (!stateIsValid) {
           return res.status(400).json({
             errors: ['Provide a valid state']
@@ -229,7 +214,7 @@ class AddressController {
       }
 
       if (city) {
-        const cityIsValid = _regExp.regExpIsValidText.call(void 0, city)
+        const cityIsValid = _regExp.regExpValidationCharactersFromAToZ.call(void 0, city)
         if (!cityIsValid) {
           return res.status(400).json({
             errors: ['Provide a valid city']
@@ -238,7 +223,7 @@ class AddressController {
       }
 
       if (neighborhood) {
-        const neighborhoodIsValid = _regExp.regExpIsValidText.call(void 0, neighborhood)
+        const neighborhoodIsValid = _regExp.regExpValidationCharactersFromAToZ.call(void 0, neighborhood)
         if (!neighborhoodIsValid) {
           return res.status(400).json({
             errors: ['Provide a valid neighborhood']
@@ -247,7 +232,7 @@ class AddressController {
       }
 
       if (street) {
-        const streetIsValid = _regExp.regExpIsValidText.call(void 0, street)
+        const streetIsValid = _regExp.regExpValidationCharactersFromAToZ.call(void 0, street)
         if (!streetIsValid) {
           return res.status(400).json({
             errors: ['Provide a valid street']
@@ -256,7 +241,7 @@ class AddressController {
       }
 
       if (zip_code) {
-        const zipCodeIsValid = _regExp.isValidBRZip.call(void 0, zip_code)
+        const zipCodeIsValid = _regExp.regExpValidationBRZip.call(void 0, zip_code)
 
         if (!zipCodeIsValid) {
           return res.status(400).json({

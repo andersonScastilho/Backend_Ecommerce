@@ -3,15 +3,15 @@ import User from "../models/User";
 
 import validator from "validator";
 
-import { regExpIsValidText } from '../utils/regExp'
+import { regExpValidationCharactersFromAToZ } from '../utils/regExp'
 
 class UserController {
   async store(req, res) {
     try {
       const { name, surname, tel, email, password } = req.body
 
-      const isValidName = regExpIsValidText(name)
-      const isValidSurname = regExpIsValidText(surname)
+      const isValidName = regExpValidationCharactersFromAToZ(name)
+      const isValidSurname = regExpValidationCharactersFromAToZ(surname)
 
       if (!name || !surname || !tel || !email || !password) {
         return res.status(400).json({
@@ -90,7 +90,7 @@ class UserController {
       }
 
       if (name) {
-        const isValidName = regExpIsValidText(name)
+        const isValidName = regExpValidationCharactersFromAToZ(name)
         if (!isValidName) {
           return res.status(400).json({
             errors: ['Provide a valid name']
@@ -99,7 +99,7 @@ class UserController {
       }
 
       if (surname) {
-        const isValidSurname = regExpIsValidText(surname)
+        const isValidSurname = regExpValidationCharactersFromAToZ(surname)
         if (!isValidSurname) {
           return res.status(400).json({
             errors: ['Provide a valid surname']

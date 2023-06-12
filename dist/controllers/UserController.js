@@ -10,8 +10,8 @@ class UserController {
     try {
       const { name, surname, tel, email, password } = req.body
 
-      const isValidName = _regExp.regExpIsValidText.call(void 0, name)
-      const isValidSurname = _regExp.regExpIsValidText.call(void 0, surname)
+      const isValidName = _regExp.regExpValidationCharactersFromAToZ.call(void 0, name)
+      const isValidSurname = _regExp.regExpValidationCharactersFromAToZ.call(void 0, surname)
 
       if (!name || !surname || !tel || !email || !password) {
         return res.status(400).json({
@@ -90,7 +90,7 @@ class UserController {
       }
 
       if (name) {
-        const isValidName = _regExp.regExpIsValidText.call(void 0, name)
+        const isValidName = _regExp.regExpValidationCharactersFromAToZ.call(void 0, name)
         if (!isValidName) {
           return res.status(400).json({
             errors: ['Provide a valid name']
@@ -99,7 +99,7 @@ class UserController {
       }
 
       if (surname) {
-        const isValidSurname = _regExp.regExpIsValidText.call(void 0, surname)
+        const isValidSurname = _regExp.regExpValidationCharactersFromAToZ.call(void 0, surname)
         if (!isValidSurname) {
           return res.status(400).json({
             errors: ['Provide a valid surname']
