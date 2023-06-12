@@ -11,7 +11,7 @@ var _updateUserSchema = require('../schemas/users/updateUserSchema'); var _updat
 const router = _express.Router.call(void 0, );
 
 router.post("/", _joiSchemaValidator2.default.call(void 0, _createUserSchema2.default), _UserController2.default.store);
-router.put("/", _joiSchemaValidator2.default.call(void 0, _updateUserSchema2.default), _loginRequired2.default, _UserController2.default.update);
+router.put("/", _loginRequired2.default, _joiSchemaValidator2.default.call(void 0, _updateUserSchema2.default), _UserController2.default.update);
 
 router.get("/", _loginRequired2.default, _UserController2.default.show);
 router.delete("/", _loginRequired2.default, _UserController2.default.delete);
