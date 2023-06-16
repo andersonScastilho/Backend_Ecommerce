@@ -5,7 +5,7 @@ import Request from '../models/Request'
 const verifyPayments = async () => {
     try {
         const sessionsCheckout = await stripe.checkout.sessions.list({
-            limit: 3,
+            limit: 25,
         });
 
         sessionsCheckout.data.forEach(async (session) => {
